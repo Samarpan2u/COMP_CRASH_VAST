@@ -61,19 +61,7 @@
                 the second midroll evaluation.
             -->
 
-            <AdParameters>
-              <![CDATA[
-              adrulesversion=2.1,
-              campaignid=31656805-253b-4144-aac0-253d3333c3f5,
-              fcapmode=creative,
-              repetitionpolicy=3,
-              repeattime=60,
-              fcapcount=100,
-              position=0,
-              positionpriority=2,
-              positionmode=preferred
-              ]]>
-            </AdParameters>
+<AdParameters><![CDATA[adrulesversion=2.1,fcapmode=creative,repetitionpolicy=3,repeattime=60,fcapcount=100,position=0,positionpriority=2,positionmode=preferred]]></AdParameters>
 
             <MediaFiles>
 
