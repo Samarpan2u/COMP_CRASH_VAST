@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VAST version="4.2">
-  <Ad id="webhook-repro-004" sequence="1">
+  <Ad id="webhook-repro-001" sequence="1">
     <InLine>
       <AdSystem version="1.0">GMana Test</AdSystem>
-      <AdTitle>Webhook Macro Reproduction Test — Case 4: Combined Macros</AdTitle>
+      <AdTitle>Webhook Macro Crash Repro</AdTitle>
       <Impression><![CDATA[
-        https://example.com/impression?user=[user.id]&player=[player.id]&asset=[asset.id]&idxseg=[player.idxseg]&audience=[webhook.audienceCodes]
+        https://example.com/impression?user=[user.id]&player=[player.idxseg]&audience=[webhook.audienceCodes]
       ]]></Impression>
       <Creatives>
         <Creative>
@@ -13,15 +13,15 @@
             <Duration>00:00:30</Duration>
             <TrackingEvents>
               <Tracking event="start"><![CDATA[
-                https://example.com/start?user=[user.id]&asset=[asset.id]&audience=[webhook.audienceCodes]
+                https://example.com/start?audience=[webhook.audienceCodes]
               ]]></Tracking>
               <Tracking event="complete"><![CDATA[
-                https://example.com/complete?user=[user.id]&audience=[webhook.audienceCodes]
+                https://example.com/complete?audience=[webhook.audienceCodes]
               ]]></Tracking>
             </TrackingEvents>
             <VideoClicks>
               <ClickThrough><![CDATA[
-                https://example.com/click?player=[player.id]&audience=[webhook.audienceCodes]
+                https://example.com/click?audience=[webhook.audienceCodes]
               ]]></ClickThrough>
             </VideoClicks>
             <MediaFiles>
