@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST version="4.0" xmlns="http://www.iab.com/VAST">
+  <Ad id="20026" sequence="1">
+    <InLine>
+      <AdSystem version="1.0">ReproAdServer</AdSystem>
+      <AdTitle>COMP_CRASH Repro - Missing Webhook Companion</AdTitle>
+      <Impression id="impression1"><![CDATA[https://example-adserver.test/impression?id=20026]]></Impression>
+      <Creatives>
+        <Creative id="5480" sequence="1" adId="20026">
+          <Linear>
+            <Duration>00:00:15</Duration>
+            <TrackingEvents>
+              <Tracking event="start"><![CDATA[https://example-adserver.test/track?event=start]]></Tracking>
+              <Tracking event="complete"><![CDATA[https://example-adserver.test/track?event=complete]]></Tracking>
+            </TrackingEvents>
+            <VideoClicks>
+              <ClickThrough id="blog"><![CDATA[https://example-adserver.test/clickthrough]]></ClickThrough>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile id="5241" delivery="progressive" type="video/mp4" bitrate="500" width="1280" height="720">
+                <![CDATA[https://example-adserver.test/creative.mp4]]>
+              </MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+
+        <!-- Companion ad present structurally, but intentionally missing
+             the AdParameters payload that carries the webhook/callback URL.
+             getUserAds() -> getDynamicVastUrl() will find this Companion node,
+             attempt to read companion.adParameters.webhook (or similar),
+             and get undefined instead of throwing a parse error -->
+        <Creative id="5481" sequence="1" adId="20026">
+          <CompanionAds>
+            <Companion id="7500" width="300" height="250">
+              <StaticResource creativeType="image/png">
+                <![CDATA[https://example-adserver.test/companion.png]]>
+              </StaticResource>
+              <CompanionClickThrough><![CDATA[https://example-adserver.test/companion-click]]></CompanionClickThrough>
+              <!-- No <AdParameters> node here at all -->
+              <TrackingEvents>
+                <Tracking event="creativeView"><![CDATA[https://example-adserver.test/track?event=creativeView]]></Tracking>
+              </TrackingEvents>
+            </Companion>
+
+            <!-- Second companion: AdParameters present but EMPTY,
+                 which some parsers treat differently from "missing" -
+                 useful if the first case alone doesn't reproduce it -->
+            <Companion id="7501" width="728" height="90">
+              <StaticResource creativeType="image/png">
+                <![CDATA[https://example-adserver.test/companion-leaderboard.png]]>
+              </StaticResource>
+              <AdParameters><![CDATA[]]></AdParameters>
+            </Companion>
+          </CompanionAds>
+        </Creative>
+      </Creatives>
+
+      <Extensions>
+        <!-- Some SSAI pipelines pull the dynamic/webhook URL from a custom
+             Extension rather than AdParameters. Included empty on purpose. -->
+        <Extension type="webhook"></Extension>
+      </Extensions>
+    </InLine>
+  </Ad>
+</VAST>
